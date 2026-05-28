@@ -25,9 +25,9 @@ final class URLValidatorTests: XCTestCase {
         //Arrange - prepara o cenário
         let validator = URLValidator()
         //Act - executa a ação
-        let result = validator.validate("google.com")
+        let result = validator.validate("google")
         //Assert - verifica o resultado
-        XCTAssertNotNil(result)
+        XCTAssertNil(result)
 
     }
     
