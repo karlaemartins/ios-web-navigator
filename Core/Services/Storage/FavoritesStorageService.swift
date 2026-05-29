@@ -38,6 +38,7 @@ final class FavoritesStorageService: StorageServiceProtocol {
         }
     }
     
+    //recovery
     func saveLastDeletedSites(_ sites: [Site]) {
         do {
             let data = try JSONEncoder().encode(sites)
@@ -47,6 +48,7 @@ final class FavoritesStorageService: StorageServiceProtocol {
         }
     }
     
+    //recovery
     func loadLastDeletedSites() -> [Site] {
         guard let data = defaults.data(forKey: deletedSitesKey) else {
             return []

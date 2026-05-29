@@ -11,6 +11,7 @@ import XCTest
 
 final class URLValidatorTests: XCTestCase {
     
+    //Retorna a URL quando a entrada for válida - regra de validação
     func testValidateReturnsURLWhenInputIsValid() {
         //Arrange - prepara o cenário
         let validator = URLValidator()
@@ -21,6 +22,7 @@ final class URLValidatorTests: XCTestCase {
 
     }
     
+    //Retorna nil quando a entrada é inválida - regra de validação
     func testValidateReturnsNilWhenInputIsInvalid() {
         //Arrange - prepara o cenário
         let validator = URLValidator()
@@ -31,6 +33,7 @@ final class URLValidatorTests: XCTestCase {
 
     }
     
+    //Adiciona HTTPS quando necessário - regra de normalização
     func testValidateAddsHTTPSWhenNeeded() {
         //Arrange - prepara o cenário
         let validator = URLValidator()

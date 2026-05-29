@@ -10,6 +10,7 @@ import XCTest
 
 final class SiteListViewModelTests: XCTestCase {
     
+    //Adiciona um novo site quando a URL é válida - regra de negocio
     func testAddSiteAddsNewSiteWhenURLIsValid() {
         
         //Arrange:
@@ -28,6 +29,7 @@ final class SiteListViewModelTests: XCTestCase {
         
     }
     
+    //Não salva o site quando a URL é inválida - regra de negocio
     func testAddSiteDoesNotSaveSiteWhenURLIsInvalid() {
         
         //Arrange:
@@ -46,6 +48,7 @@ final class SiteListViewModelTests: XCTestCase {
         
     }
     
+    //Não adiciona sites duplicados - regra de negocio
     func testAddSiteDoesNotAddDuplicateSite() {
         
         //Arrange:
@@ -64,6 +67,7 @@ final class SiteListViewModelTests: XCTestCase {
         XCTAssertEqual(storage.sites.count, 1)
     }
     
+    //Chama delegate quando o site é duplicado - regra de comunicação
     func testAddSiteCallsDelegateWhenSiteIsDuplicate() {
         
         //Arrange:
@@ -86,6 +90,7 @@ final class SiteListViewModelTests: XCTestCase {
 
     }
     
+    //Chama delegate quando o limite é atingido - regra de negocio e comunicação
     func testAddSiteCallsDelegateWhenLimitIsReached() {
         //Arrange:
         let storage = MockStorageService()
@@ -109,6 +114,7 @@ final class SiteListViewModelTests: XCTestCase {
         XCTAssertTrue(delegate.didReachLimitCalled)
     }
     
+    //Chama delegate quando o a URL é invalida - regra de negocio e comunicação
     func testAddSiteCallsDelegateWhenURLIsInvalid() {
         
         //Arrange:
@@ -130,6 +136,8 @@ final class SiteListViewModelTests: XCTestCase {
         XCTAssertTrue(delegate.didReceiveInvalidURLCalled)
     }
     
+    
+    //Chama delegate quando a recuperação é parcial - regra de negocio, recuperação e comunicação
     func testRecoverSitesCallsDelegateWhenRecoveryIsPartial() {
         
         //Arrange:
