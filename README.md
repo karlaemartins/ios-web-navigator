@@ -1,58 +1,53 @@
-# WebNavigator
+# iOS Web Navigator - Projeto de Estudo
 
-Aplicativo iOS desenvolvido em **Swift + UIKit**, com arquitetura **MVVM + Coordinator + Dependency Injection + Protocol**, que permite salvar e acessar rapidamente sites favoritos dentro do próprio app.
+Aplicativo desenvolvido em **UIKit** que permite salvar, organizar e acessar rapidamente sites favoritos dentro do próprio app. O projeto foi construído com foco em arquitetura, separação de responsabilidades, navegação em UIKit e testes unitários, utilizando **MVVM**, **Coordinator**, **Dependency Injection** e **Protocol-Oriented Programming**.
 
-O projeto foi construído **100% programaticamente (sem Storyboard)** com foco em aprendizado de arquitetura, separação de responsabilidades, navegação em UIKit e testes unitários. 
+## O que o app faz
 
----
-
-## Funcionalidades
-
-- Adicionar novos sites favoritos  
-- Validação e normalização de URLs  
-- Lista de sites utilizando `UITableView`  
-- Abertura do site dentro do app com `WKWebView`  
-- Exclusão de sites com **Swipe to Delete**  
-- Persistência local com `UserDefaults`  
-- Limite de até **10 sites salvos**
-- Bloqueio de sites duplicados
-- Recuperação dos últimos sites removidos
-- Recuperação parcial quando o limite de favoritos é atingido
-- Alertas para: 
-    - URL inválida
-    - Site duplicado
-    - Limite de favoritos atingido
-    - Recuperação parcial
-- Reabertura do campo de inserção em caso de URL inválida  
-
----
+- Adiciona novos sites favoritos
+- Valida e normaliza URLs automaticamente
+- Exibe os sites em uma UITableView
+- Abre os sites dentro do aplicativo utilizando WKWebView
+- Permite excluir favoritos com Swipe to Delete
+- Persiste os dados utilizando UserDefaults
+- Limita o armazenamento a 10 favoritos
+- Impede a adição de sites duplicados
+- Recupera os últimos sites removidos
+- Permite recuperação parcial quando o limite de favoritos é atingido
+- Exibe alertas para:
+  - URL inválida
+  - Site duplicado
+  - Limite de favoritos atingido
+  - Recuperação parcial
+- Reabre automaticamente o campo de inserção quando uma URL inválida é informada
 
 ## Arquitetura
 
-O projeto utiliza **MVVM + Coordinator + Service Layer + Dependency Injection + Protocol**, garantindo separação clara de responsabilidades, baixo acoplamento e maior flexibilidade.
+O projeto foi estruturado utilizando **MVVM**, **Coordinator**, **Service Layer**, **Dependency Injection** e **Protocol-Oriented Programming**, garantindo separação clara de responsabilidades, baixo acoplamento e maior flexibilidade.
 
-### View (ViewController)
+### View
+
 Responsável pela interface e interação com o usuário.
 
-- Exibe a lista de sites  
-- Encaminha ações do usuário para o ViewModel
+- Exibe a lista de sites
+- Encaminha ações para o ViewModel
 - Atualiza a interface através dos eventos recebidos do ViewModel
 
 ### ViewModel
+
 Responsável pelas regras de negócio da aplicação.
 
-- Gerencia a lista de sites  
-- Adiciona e remove favoritos 
-- Controla o limite máximo de 10 sites
-- Impede a adição de sites duplicados
+- Gerencia a lista de favoritos
+- Adiciona e remove sites
+- Controla o limite máximo de favoritos
+- Impede duplicações
 - Executa a recuperação de sites removidos
 - Comunica eventos para a View através de Delegate
-- Não cria dependências, apenas as recebe via Dependency Injection
+- Recebe todas as dependências via Dependency Injection
 
 ### Services
 
 **FavoritesStorageService**
-Responsável pela persistência local utilizando `UserDefaults`
 
 - Salva favoritos
 - Recupera favoritos
@@ -60,61 +55,39 @@ Responsável pela persistência local utilizando `UserDefaults`
 - Recupera sites para a funcionalidade de recovery
 
 **URLValidator**
-Responsável por validar e normalizar URLs. 
 
+- Normaliza URLs
 - Adiciona `https://` quando necessário
-- Verifica se a URL possuí domínio válido
+- Valida o domínio informado
 - Retorna uma URL válida ou `nil`
 
 ### Coordinator
-Responsável pelos fluxos de navegação e apresentação.
+
+Responsável pelo fluxo de navegação da aplicação.
 
 - Cria e injeta dependências
 - Controla a navegação entre telas
-- Centraliza a exibição de alertas
-- Mantém a ViewController desacoplada da navegação 
+- Centraliza a apresentação de alertas
+- Mantém as ViewControllers desacopladas da navegação
 
----
+## Decisões importantes
 
-## Dependency Injection
-
-O projeto utiliza **Dependency Injection** para reduzir acoplamento e facilitar manutenção e testes.
-
-- O `ViewModel` recebe o `StorageServiceProtocol`
-- O `ViewModel` recebe o `URLValidatorProtocol`  
-- A `ViewController` recebe o `ViewModel`  
-- O `Coordinator` é responsável por criar e injetar todas as dependências
-  
----
-
-## Protocols (Abstrações)
-
-O projeto utiliza protocolos para desacoplar a camada de persistência.
-
-**StorageServiceProtocol**
-Define as operações de persistência: 
-
-- Salvar favoritos
-- Carregar favoritos
-- Salvar sites removidos
-- Recuperar sites removidos
-
-**URLValidatorProtocol**
-Define a responsabilidade de validação de URLs. 
-
-Isso permite:
-
-- Trocar implementações sem alterar o ViewModel
-- Facilitar testes unitários
-- Reduzir acoplamento entre camadas
-
----
+- UIKit programático (sem Storyboard)
+- Arquitetura MVVM
+- Coordinator Pattern
+- Service Layer
+- Dependency Injection
+- Protocol-Oriented Programming
+- Persistência utilizando UserDefaults
+- Navegação utilizando UINavigationController
+- Validação de URLs antes da persistência
+- Estrutura preparada para crescimento da aplicação
 
 ## Testes
 
-O projeto possui testes unitários utilizando **XCTest**
+O projeto possui testes unitários utilizando **XCTest**.
 
-## Cobertura atual
+### Cobertura atual
 
 **URLValidator**
 
@@ -129,37 +102,28 @@ O projeto possui testes unitários utilizando **XCTest**
 - Bloqueio de duplicação
 - Limite máximo de favoritos
 - Recuperação parcial de sites
-- Comunicação com Delegate para eventos da aplicação
+- Comunicação com Delegate
 
-Para isolamento dos testes foram utilizados: 
+Para isolamento dos testes foram utilizados:
 
-- `MockStorageService`
-- `MockURLValidator`
-- `MockSiteListViewModelDelegate (Spy)
+- MockStorageService
+- MockURLValidator
+- MockSiteListViewModelDelegate (Spy)
 
----
+## Conceitos praticados
 
-## Tecnologias utilizadas
-
-- Swift  
-- UIKit  
-- WebKit  
-- UserDefaults  
-- AutoLayout programático  
-- UINavigationController  
-
----
-
-## Objetivo do projeto
-
-Este projeto foi desenvolvido como parte do estudo de **desenvolvimento iOS com UIKit**, com foco em:
-
-- Arquitetura MVVM
+- Swift
+- UIKit
+- WebKit
+- WKWebView
+- MVVM
 - Coordinator Pattern
 - Dependency Injection
-- Protocol-Oriented Design
-- Persistência local
-- Testes unitários
+- Protocol-Oriented Programming
+- UserDefaults
+- Auto Layout
+- UITableView
+- XCTest
 - Mocks e Spies
-- Separação de responsabilidades
-- Organização escalável de código
+- Persistência local
+- Validação de URLs
